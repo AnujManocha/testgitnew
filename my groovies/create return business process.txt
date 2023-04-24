@@ -1,0 +1,50 @@
+import com.amway.lynxevents.events.app.LynxInvoiceReadyBusinessEvent;
+import com.amway.lynxcore.order.service.LynxReturnService;
+import de.hybris.platform.store.BaseStoreModel;
+import de.hybris.platform.processengine.BusinessProcessService;
+import de.hybris.platform.returns.model.ReturnProcessModel;
+import de.hybris.platform.returns.model.ReturnRequestModel;
+
+LynxReturnService lynxReturnService =spring.getBean("lynxReturnService");
+BusinessProcessService businessProcessService = spring.getBean("businessProcessService");
+def returns = flexibleSearchService.search("""select {pk} from {ReturnRequest} where {code} in (
+
+'95366007'
+
+)
+""").result
+
+
+
+returns.each {
+  Locale localeen = new Locale.Builder().setLanguage("en").build();
+  BaseStoreModel basestore =null;
+println "order code : " + it.code + " --1> " + it.status  
+
+if (lynxReturnService.isExternalOrderReturn(it)){
+	println "Yes"
+	basestore =null;
+}else{	
+  basestore = it.getOrder().getStore();
+  println basestore.uid
+}
+
+if(basestore !=null){
+String createReturnProcessCode = basestore.getCreateReturnProcessCode();
+println "code = " + createReturnProcessCode
+
+String processCode = createReturnProcessCode + "-" + it.getCode() + "-" + System.currentTimeMillis();
+ReturnProcessModel businessProcess = businessProcessService.createProcess(processCode, createReturnProcessCode);
+println "businessProcess  = " + businessProcess
+businessProcess.setReturnRequest(it);
+modelService.save(businessProcess);
+  
+  println "done  = " + businessProcess
+  
+
+}
+
+}
+
+
+//checkReturnAction

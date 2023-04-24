@@ -1,0 +1,51 @@
+import de.hybris.platform.servicelayer.session.SessionExecutionBody;
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import com.amway.lynxevents.model.LynxEventCheckEntityDataModel;
+import java.util.Optional;
+import de.hybris.platform.core.model.order.AbstractOrderModel;
+import com.amway.lynxevents.events.app.LynxInvoiceReadyBusinessEvent;
+import com.amway.lynxevents.events.app.LynxReturnStatusChangedBusinessEvent; 
+import org.apache.log4j.Logger;
+import com.amway.lynxevents.events.app.LynxOrderStatusChangedBusinessEvent;
+import com.amway.lynxevents.events.app.LynxPaymentStatusChangedBusinessEvent; 
+import com.amway.core.events.model.AmwayEventQueueEntryModel; 
+import com.amway.eventstream.model.AmwayEventStagingEntryModel;
+import groovy.json.JsonSlurper;
+ 
+
+sessionService=spring.getBean("sessionService");
+
+sessionService.executeInLocalView(new SessionExecutionBody(){
+@Override
+public Object execute() {
+
+
+flexibleSearchService = spring.getBean("flexibleSearchService");	
+lynxOrderService = spring.getBean("lynxOrderService");	
+//key
+//def entityDataQuery = "select {aes.pk} from {AmwayEventStagingEntry as aes  join amwayeventqueueentry as event on {event.code} ={aes.key} } where {aes.creationTime} >='2022-12-13 00:00:11.733' and {event.name} ='Order Created Bonus'" 
+
+def entityDataQuery = "select {aes.pk} from {AmwayEventStagingEntry as aes  join amwayeventqueueentry as event on {event.code} ={aes.key} } where {event.code} in ('076691601','076692301','076688812','076689057','076685383','076306402','076690613','076693100','076687943','076686278','076682540','076380928','076692539','076692295','076686893','076686249','076682530','076380371','076690617','076690398','076687945','076688176','076683553','076442723','076692528','076693048','076686842','076687204','076684427','076442730','076693294','076691368','076689633','076688162','076684437','076381267','076693287','076693080','076688813','076688148','076685392','076452844','076690605','076693090','076686919','076688155','076682536','076454461','076693301','076692330','076686932','076689077','076684447','076475017','076693285','076690367','076686899','076686252','076683533','076475022','076691605','076691367','076687928','076688152','076682533','076505223','076693286','076692297','076688810','076689058','076683535','076505266','076690609','076693098','076688836','076687263','076682546', '076507120')"
+
+FlexibleSearchQuery apniQuery = new FlexibleSearchQuery(entityDataQuery);
+apniQuery.setCount(1000);
+List<AmwayEventStagingEntryModel> entityDataList = flexibleSearchService.<AmwayEventStagingEntryModel> search(apniQuery).getResult();
+AbstractOrderModel order = null;
+
+for(AmwayEventStagingEntryModel entityDataModel : entityDataList) {
+
+  def slurper = new JsonSlurper()
+def result = slurper.parseText(entityDataModel.eventPayload);
+
+  if(result.entity ==null){
+    
+  //out.println(entityDataModel.eventPayload);
+  out.println(entityDataModel.key)	; 
+  }
+
+		
+}
+
+return "Null Payload has been re-populated";	
+}
+}, spring.getBean('userService').getAdminUser())

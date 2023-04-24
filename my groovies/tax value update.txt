@@ -1,0 +1,46 @@
+import de.hybris.platform.core.model.order.delivery.DeliveryModeModel;
+import de.hybris.platform.util.TaxValue;
+
+def orders = flexibleSearchService.search("""
+SELECT {PK}
+FROM {Order}
+WHERE {code} in (
+
+
+"280082458"
+
+
+
+) 
+AND {originalVersion} IS NULL
+""").result
+ 
+ 
+ 
+
+
+
+ 
+orders.each {
+    println "order code : " + it.code + " --1> " + it.status
+	println lynxTaxValueService.getDeliveryTaxValue(it);
+  	DeliveryModeModel deliveryMode = it.deliveryMode
+//	println deliveryMode instanceof DeliveryModeModel
+//	TaxValue deliveryTax = lynxTaxValueService.getDeliveryTaxValue(it)
+	
+	TaxValue taxValue = it.lynxDeliveryTaxValue
+  	println taxValue.getCode()
+    println taxValue.getValue()
+	totalDeliveryGrossTaxValue = lynxTaxValueService.calculateAndGetGrossTaxValue(it.lynxDeliveryInfo.getTotalDeliveryCost(),
+					taxValue.getValue());
+   println "totalDeliveryGrossTaxValue " + totalDeliveryGrossTaxValue
+	TaxValue totalDeliveryTaxValue = new TaxValue("VAT-GEN",25, false, 20,
+					taxValue.getCurrencyIsoCode());
+					
+	println totalDeliveryTaxValue
+  it.setLynxDeliveryTaxValue(totalDeliveryTaxValue)
+   it.setLynxDeliveryTax(20.0)
+   modelService.save(it)
+  
+  println "saved"
+}

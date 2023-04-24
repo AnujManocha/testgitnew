@@ -1,0 +1,49 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+import com.amway.core.enums.ReturnReasonEnum;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+
+  final List <OrderModel> orders =flexibleSearchService.search("select {pk} from {Order} where {creationTime} >= '2022-11-24 17:35:40.73'  and {creationTime} <= '2022-11-25 17:35:40.73' and {paymentStatus}='8796097970267'").getResult();
+ @Override
+    public Object execute() {
+
+        for(OrderModel order : orders)
+        {
+          
+         long  tranasctionamount = 0.0;
+       
+          if(order.paymentTransactions.size() !=0){
+            tranasctionamount = order.paymentTransactions.get(0);
+         
+          }
+		println(order.code +","+ order.paymentStatus +"," + order.totalPrice +"," + order.lynxManuallyAppliedAccountReceivableBalance);
+  
+	//      if(order.totalPrice  == tranasctionamount){
+     //      println(order.code +" paid");
+     //     }else{
+     //     println(order.code +" part paid");
+     //     }
+       
+     //   println("   ");
+        }
+     return "List of orders code:  "+orders.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

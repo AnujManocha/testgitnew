@@ -1,0 +1,26 @@
+
+$visibility=false 
+##make this flag as true to enable and false to disbale the components.
+
+$lang=en
+$langsv=sv
+###########Sweden######################
+$contentCatalog = lynxsweContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+INSERT_UPDATE LynxNotificationBannerComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility];notificationType(code);content[en];title[en];name;restrictions(name,$contentCV);slots(uid,$contentCV)
+;cmsitem_test_generic_banner_component_01;;;ALERT;"this is test contents for testing we can change it as per our requiremt";"PLEASE NOTE: Payment will be down for ABOs and Registered Customers";"Incident Notification banner Generic";Customer,ABO;notificationsSlot
+
+UPDATE LynxNotificationBannerComponent;uid[unique=true]                         ;$contentCV[unique=true];content[$langsv];title[$langsv];
+                                      ;cmsitem_test_generic_banner_component_01;;"test sv";"test sv"
+
+
+
+select {uid},{visible},{content[en]},{notificationType},{title[en]},{catalogVersion},{name} from {LynxNotificationBannerComponent} where {uid} ='cmsitem_00948018'
+
+
+
+8964946560060
+
+
+BaseStore

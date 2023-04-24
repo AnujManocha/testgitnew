@@ -1,0 +1,43 @@
+import de.hybris.platform.servicelayer.session.SessionExecutionBody;
+import de.hybris.platform.core.model.ItemModel;
+import de.hybris.platform.core.model.user.EmployeeModel;
+import de.hybris.platform.core.model.user.UserGroupModel;
+ 
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+@Override
+public Object execute() {
+modelService = spring.getBean("modelService");
+flexibleSearchService = spring.getBean("flexibleSearchService");
+ 
+EmployeeModel item = new EmployeeModel();
+item.setUid('euvbmonw');              //from user which we have to copy permissions
+EmployeeModel i = flexibleSearchService.getModelByExample(item);
+HashSet hs = new HashSet<UserGroupModel>(i.getGroups());
+EmployeeModel emp = new EmployeeModel();
+emp.setUid('aiumpp8');               // our user
+EmployeeModel testEmployee = flexibleSearchService.getModelByExample(emp);
+testEmployee.setGroups(hs);
+modelService.save(testEmployee);
+ 
+println "Done ! " + testEmployee.getPk();
+return "done";
+}
+}, spring.getBean('userService').getAdminUser())
+
+
+
+
+
+//
+
+$START_USERRIGHTS
+Type;UID;MemberOfGroups;Password;Target;read;change;create;delete;change_perm
+Employe;plu07f4y;;
+;;;;Product;+;+;+;-;-
+$END_USERRIGHTS
+
+
+plu0765g
+plu07f4y
+emp_hybris_support_engineer_it

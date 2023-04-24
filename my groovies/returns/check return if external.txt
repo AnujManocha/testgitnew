@@ -1,0 +1,44 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+import com.amway.lynxcore.model.LynxOrderTypeModel;
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+import de.hybris.platform.returns.model.ReturnRequestModel;
+import com.amway.lynxcore.order.service.LynxReturnService;
+
+import com.amway.core.enums.ReturnReasonEnum;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+	LynxReturnService lynxReturnService = applicationContext.getBean("lynxReturnService");
+ Locale localeen = new Locale.Builder().setLanguage("en").build();
+  final List <ReturnRequestModel> orders =flexibleSearchService.search("select {pk} from {ReturnRequest} where {code} in ('97564022')").getResult();
+ @Override
+    public Object execute() {
+
+        for(ReturnRequestModel order : orders)
+        {
+			println("order code " + order.code + " status  "+ order.status + " " + order.totalPrice);
+ 
+			println("check " + lynxReturnService.isExternalOrderReturn(returnRequest));
+		
+	   
+		
+        println("   ");
+        }
+     return "List of invoiceProcess code:  "+orders.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

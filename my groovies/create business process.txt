@@ -1,0 +1,11 @@
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
+import de.hybris.platform.core.model.order.OrderModel;
+FlexibleSearchQuery query = new FlexibleSearchQuery("select {o.PK} from {order as o left join orderProcess as op on {op.order} = {o.pk} join paymentmode as pm on {o.paymentmode} = {pm.pk} join orderstatus as st on {o.status} = {st.pk} } where {o.originalVersion} is null and {op.order} is null and DATE({o.date}) > \"2023-01-25\" and {st.code} like \"ACTIVE\" and {o.lynxParent} is null and {o.store} in ({{ select {PK} from {BaseStore} where {uid} in ('lynxdeu') }}) order by {o.date} desc");
+for (OrderModel o : flexibleSearchService.<OrderModel>search(query).getResult())
+{
+
+println("Creatin placeOrder event for " + o.getCode());
+
+//LynxSubmitOrderEvent event = new LynxSubmitOrderEvent(o, lynxOrderService.isServiceOrder(o));
+
+}

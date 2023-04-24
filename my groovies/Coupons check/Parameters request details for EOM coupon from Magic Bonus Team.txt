@@ -1,0 +1,71 @@
+package com.amway.lynxcore.order.service.calculation.impl
+
+import com.amway.lynxcore.model.LynxEomCouponGenerationConfigurationModel
+import com.amway.lynxcouponintegration.model.LynxEomCouponGenerationCronJobModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.joda.time.DateTime
+import org.springframework.context.ApplicationContext
+import com.amway.lynxcouponintegration.model.notification.LynxEomGiftCouponRequestCriteriaTarget;
+import com.amway.lynxcouponintegration.model.notification.LynxEomGiftCouponRequestCriteria;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+    final ModelService modelService = applicationContext.getBean("modelService")
+    public static final String EOM_PERIOD_TYPE = "M";
+    @Override
+    public Object execute() {
+
+
+
+        final List<LynxEomCouponGenerationCronJobModel> cronJobs = flexibleSearchService.search("SELECT {PK} FROM {LynxEomCouponGenerationCronJob}").getResult()
+
+        for (LynxEomCouponGenerationCronJobModel cronJob : cronJobs){
+            LynxEomCouponGenerationConfigurationModel configuration = cronJob.getLynxEomCouponGenerationConfiguration();
+
+
+            println("For Job : "+cronJob.getCode())
+            LynxEomGiftCouponRequestCriteriaTarget requestCriteriaTarget = new LynxEomGiftCouponRequestCriteriaTarget(
+                    configuration.getCountry().getIsocode());
+
+            LynxEomGiftCouponRequestCriteria requestCriteria = new LynxEomGiftCouponRequestCriteria(
+                    Collections.singletonList(requestCriteriaTarget));
+
+            println("business nature : "+lynxExecuteEomCouponGenerationCronJob.businessNatures(configuration.getUserTypes()))
+
+            println("minimum pv : "+lynxExecuteEomCouponGenerationCronJob.minimumPvValue(configuration))
+
+            println("EOM_PERIOD_TYPE : "+EOM_PERIOD_TYPE)
+
+            int orderPlacementStartDate = configuration.getOrderPlacementStartDate();
+            int orderPlacementEndDate = configuration.getOrderPlacementEndDate();
+            boolean excludeTopUp = configurationService.getConfiguration().getBoolean("toggle.lynx.coupon.exclude.topup", true);
+
+
+            DateTime now = DateTime.now();
+            int dayOfNow = now.getDayOfMonth();
+            if ((dayOfNow <= orderPlacementStartDate && dayOfNow <= orderPlacementEndDate) || (dayOfNow >= orderPlacementStartDate
+                    && dayOfNow <= orderPlacementEndDate)) {
+                println("CriteriaPeriodStart : "+now.minusMonths(1).withDayOfMonth(orderPlacementStartDate).toDate())
+                println("CriteriaPeriodEnd : "+now.minusMonths(1).withDayOfMonth(orderPlacementEndDate).toDate())
+            } else {
+                println("CriteriaPeriodStart : "+now.withDayOfMonth(orderPlacementStartDate).toDate())
+                println("CriteriaPeriodEnd : "+now.withDayOfMonth(orderPlacementEndDate).toDate())
+            }
+
+            println("Request ID : "+UUID.randomUUID().toString())
+
+            println("ExcludeTopUp :"+excludeTopUp)
+            println("-------------------------------------------------------------------------------------------")
+        }
+
+    }
+
+
+
+}, spring.getBean('userService').getAdminUser())

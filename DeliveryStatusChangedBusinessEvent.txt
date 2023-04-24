@@ -1,0 +1,24 @@
+import com.amway.lynxevents.events.app.LynxDeliveryStatusChangedBusinessEvent ; 
+
+def orders = flexibleSearchService.search("""
+SELECT {PK}
+FROM {Order}
+WHERE {code} in (
+
+
+
+"34096375205",
+"34096375208",
+
+) AND {originalVersion} IS NULL
+""").result
+
+
+ 
+orders.each {
+    println "order code : " + it.code + " --1> " + it.status
+    LynxDeliveryStatusChangedBusinessEvent  event = new LynxDeliveryStatusChangedBusinessEvent()
+    event.setOrder(it)
+    eventService.publishEvent(event)
+}
+

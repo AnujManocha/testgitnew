@@ -1,0 +1,8 @@
+import com.amway.lynxcore.event.cache.LynxClearCacheRegionClusterEvent
+def list = ["typesystemCacheRegion"];
+for(a in list) {
+def event = new LynxClearCacheRegionClusterEvent(a);
+eventService.publishEvent(event);
+println "cleared "+ a;
+}
+print "done"

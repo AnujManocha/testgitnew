@@ -1,0 +1,202 @@
+$visibility=true 
+##make this flag as true to enable and false to disbale the components.
+
+
+###########Sweden######################
+$contentCatalog = lynxsweContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912095
+
+###########Finland######################
+$contentCatalog = lynxfinContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912093
+
+###########Denmark######################
+$contentCatalog = lynxdnkContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912096
+
+###########Norway######################
+$contentCatalog = lynxnorContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00909044
+
+###########Netherlands######################
+$contentCatalog = lynxnldContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00912090
+
+###########Spain######################
+$contentCatalog = lynxespContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00912094
+
+###########Portugal######################
+$contentCatalog = lynxprtContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00909043
+
+###########Belgium######################
+$contentCatalog = lynxbelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00912092
+
+###########Greece######################
+$contentCatalog = lynxgrcContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00910074
+
+###########Switzerland######################
+$contentCatalog = lynxcheContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912085
+
+###########Germany######################
+$contentCatalog = lynxdeuContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912084
+
+
+###########France######################
+$contentCatalog = lynxfraContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912086
+
+###########Italy######################
+$contentCatalog = lynxitaContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912091
+
+###########UK######################
+$contentCatalog = lynxgbrContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00912087
+
+###########Ireland######################
+$contentCatalog = lynxirlContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00912089
+
+###########Austria######################
+$contentCatalog = lynxautContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00912083
+
+###########Estonia######################
+$contentCatalog = lynxestContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910076
+
+###########Hungary######################
+$contentCatalog = lynxhunContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910058
+
+###########Slovakia######################
+$contentCatalog = lynxsvkContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910063
+
+###########Lithuania######################
+$contentCatalog = lynxltuContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910073
+
+###########Romania######################
+$contentCatalog = lynxrouContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910061
+
+###########Croatia######################
+$contentCatalog = lynxhrvContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00910062
+
+###########Turkey######################
+$contentCatalog = lynxturContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910070
+
+###########Bulgaria######################
+$contentCatalog = lynxbgrContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00910060
+
+###########Czech######################
+$contentCatalog = lynxczeContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00910069
+
+
+###########Poland######################
+$contentCatalog = lynxpolContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910059
+
+
+###########Latvia######################
+$contentCatalog = lynxlvaContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910075
+
+###########Slovenia######################
+$contentCatalog = lynxsvnContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00910064

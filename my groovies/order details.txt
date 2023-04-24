@@ -1,0 +1,58 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+import com.amway.lynxcore.model.LynxOrderTypeModel;
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+import com.amway.core.enums.ReturnReasonEnum;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+ Locale localeen = new Locale.Builder().setLanguage("en").build();
+  final List <OrderModel> orders =flexibleSearchService.search("select {pk} from {Order} where {code} in ('170793395')").getResult();
+ @Override
+    public Object execute() {
+
+        for(OrderModel order : orders)
+        {
+			println("order code " + order.code + " status  "+ order.status + " " + order.totalPrice);
+    
+		
+		
+	   	println("order time " + order.creationtime);
+        println("order lynxVolumeAbo  " + order.lynxVolumeAbo.code + "   " +order.lynxVolumeAbo.name);
+		 println("order customer " + order.account.code);
+        println("order code " + order.store.uid);
+      //    println("order code " + order.lynxOrderType);
+          
+	//	println("price " + order.totalPrice);
+          
+  //       for(entry in order.entries){
+	//	  if(entry!=null){
+	//	  println ("product code " + entry.product.code + " product name " +  entry.product.getName(localeen));
+  //   	  }
+  //       }
+  // 
+          for(transaction in order.paymentTransactions){
+       //   println ("transaction code " + order.code +" - " + transaction.code);
+          }
+   
+		 println ("order.paymentStatuse "+ order.paymentStatus);
+        println("   ");
+        }
+     return "List of invoiceProcess code:  "+orders.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

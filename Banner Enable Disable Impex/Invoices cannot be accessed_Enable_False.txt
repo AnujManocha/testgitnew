@@ -1,0 +1,197 @@
+$visibility=false
+
+#Sweden
+$contentCatalog = lynxsweContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00884032
+
+#Finland
+$contentCatalog = lynxfinContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885184
+
+#Denmark
+$contentCatalog = lynxdnkContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885210
+
+#Norway
+$contentCatalog = lynxnorContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00883152
+
+#Netherlands
+$contentCatalog = lynxnldContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00881186
+
+#Spain
+$contentCatalog = lynxespContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00881160
+
+#Portugal
+$contentCatalog = lynxprtContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00881213
+
+#Belgium
+$contentCatalog = lynxbelContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885137
+
+#Greece
+$contentCatalog = lynxgrcContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885024
+
+#Switzerland
+$contentCatalog = lynxcheContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00887093
+
+#Germany
+$contentCatalog = lynxdeuContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00887043
+
+#France
+$contentCatalog = lynxfraContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885263
+
+#Italy
+$contentCatalog = lynxitaContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00887068
+
+#UK
+$contentCatalog = lynxgbrContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00883172
+
+#Ireland
+$contentCatalog = lynxirlContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00883198
+
+#Austria
+$contentCatalog = lynxautContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00882060
+
+#Estonia
+$contentCatalog = lynxestContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00883112
+
+#Hungary
+$contentCatalog = lynxhunContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885057
+
+#Slovakia
+$contentCatalog = lynxsvkContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00883231
+
+#Lithuania
+$contentCatalog = lynxltuContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885105
+
+#Romania
+$contentCatalog = lynxrouContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885238
+
+#Croatia
+$contentCatalog = lynxhrvContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00881139
+
+#Turkey
+$contentCatalog = lynxturContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00881084
+
+#Bulgaria
+$contentCatalog = lynxbgrContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00886044
+
+#Czech
+$contentCatalog = lynxczeContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00887029
+
+#Poland
+$contentCatalog = lynxpolContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;comp_00881113
+
+#Latvia
+$contentCatalog = lynxlvaContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00883085
+
+#Slovenia
+$contentCatalog = lynxsvnContentCatalog
+$contentCV = catalogVersion(CatalogVersion.catalog(Catalog.id[default = $contentCatalog]), CatalogVersion.version[default = Online])[default = $contentCatalog:Online]
+
+UPDATE SimpleCMSComponent;uid[unique=true];$contentCV[unique=true];visible[default=$visibility]
+;cmsitem_00885083

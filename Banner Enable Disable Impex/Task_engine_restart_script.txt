@@ -1,0 +1,29 @@
+import com.amway.lynxcore.util.cluster.groovy.LynxGroovyScriptClusterEvent
+def script="""
+import de.hybris.platform.core.Registry;
+if (Registry.getClusterGroups().isEmpty())
+{
+taskService.engine.stop()
+print "taskengine stopped for node "+defaultTaskService.getClusterNodeID()
+print " cluster_group" + Registry.getClusterGroups()
+}
+if (Registry.getClusterGroups().contains("orderfulfillment") || Registry.getClusterGroups().contains("occ"))
+{
+configurationService.getConfiguration().setProperty("task.engine.query.full.interval","10")
+configurationService.getConfiguration().setProperty("task.polling.interval.min","10")
+configurationService.getConfiguration().setProperty("task.polling.interval","5")
+configurationService.getConfiguration().setProperty("task.queue.size.reporting.interval","-1")
+taskService.engine.stop()
+taskService.engine.start()
+println ("full_interval "+configurationService.getConfiguration().getString("task.engine.query.full.interval")+
+"set for nodeid:" + defaultTaskService.getClusterNodeID()) 
+println ("interval_min "+configurationService.getConfiguration().getString("task.polling.interval.min")+
+"set for nodeid:" + defaultTaskService.getClusterNodeID()) 
+println ("polling_interval "+configurationService.getConfiguration().getString("task.polling.interval")+
+"set for nodeid:" + defaultTaskService.getClusterNodeID()) 
+}
+"""
+def NODES = [] as Integer[] //leave as [] (empty list) if you want to run across all nodes
+def event = new LynxGroovyScriptClusterEvent(script,NODES)
+eventService.publishEvent(event)
+println 'all good'

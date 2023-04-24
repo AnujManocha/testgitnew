@@ -1,0 +1,42 @@
+import de.hybris.platform.servicelayer.session.SessionExecutionBody;
+import de.hybris.platform.core.model.ItemModel;
+import de.hybris.platform.core.model.user.EmployeeModel;
+import com.amway.core.model.AmwayAccountModel
+import com.amway.lynxcore.user.data.LynxUserGroupContext
+import com.amway.lynxcore.util.LynxUserGroupContextBuilder
+import de.hybris.platform.core.model.c2l.CountryModel
+import com.amway.lynxcore.model.LynxTerritoryModel
+import de.hybris.platform.core.model.user.UserModel
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+@Override
+public Object execute() {
+modelService = spring.getBean("modelService");
+lynxUserGroupService = spring.getBean("lynxUserGroupService");
+flexibleSearchService = spring.getBean("flexibleSearchService");
+lynxTaxPriceUserGroupProvider = spring.getBean('lynxTaxPriceUserGroupProvider')
+AmwayAccountModel item2 = new AmwayAccountModel();
+item2.setCode('2516458');
+AmwayAccountModel i2 = flexibleSearchService.getModelByExample(item2);
+// group = lynxUserGroupService.getTaxPriceUserGroup(i2)
+println("account model is " + i2)
+// println("taxpriceusergroup is " + group)
+println("---now checking groups at provider level by creating context manually---")
+CountryModel c = new CountryModel();
+c.setIsocode('IT')
+CountryModel country = flexibleSearchService.getModelByExample(c);
+println("country is " + country)  
+LynxTerritoryModel t = new LynxTerritoryModel();
+t.setDmsCode("160")
+LynxTerritoryModel territory = flexibleSearchService.getModelByExample(t);
+UserModel u = new UserModel();
+u.setUid("d52622cc-5a2f-45c4-b591-618b356f7750")
+UserModel user = flexibleSearchService.getModelByExample(u);
+println("üser id of user is " + user.getUid())
+LynxUserGroupContext context = LynxUserGroupContextBuilder.builder().withAccount(i2).withUser(user).withCountry(country).withTerritory(territory).build();
+groups = lynxTaxPriceUserGroupProvider.getUserGroups(context);
+println("context is as follows " + context)
+println("taxpriceusergroup at provider level is " + groups.uid)
+println(lynxUserGroupService.getTaxPriceUserGroup(groups))
+}
+}, spring.getBean('userService').getAdminUser())

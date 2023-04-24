@@ -1,0 +1,40 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+import com.amway.core.enums.ReturnReasonEnum;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+
+  final List <AmwayInvoiceModel> invoices =flexibleSearchService.search("select {pk} from {AmwayInvoice} where {number} ='81094934009'").getResult();
+ @Override
+    public Object execute() {
+
+        for(AmwayInvoiceModel i : invoices)
+        {
+		println("order code " + i.order.code);
+        println("customer code " + i.order.user.accounts.code);
+        println("transaction code " + i.order.paymentTransactions.get(0).code);
+        println("payment info code " + i.order.paymentInfo.number);  
+        println("payment shopperId " + i.order.paymentInfo.shopperId);
+        println("payment subscriptionId " + i.order.paymentInfo.subscriptionId);
+        println("   ");
+        }
+     return "List of invoiceProcess code:  "+invoices.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

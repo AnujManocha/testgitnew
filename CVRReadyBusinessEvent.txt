@@ -1,0 +1,25 @@
+import com.amway.lynxevents.events.app.LynxCVRReadyBusinessEvent; 
+ 
+def orders = flexibleSearchService.search("""
+SELECT {PK}
+FROM {Order}
+WHERE {code} in (
+
+'067662090'
+
+
+
+
+) AND {originalVersion} IS NULL
+""").result
+ 
+
+ 
+orders.each {
+    println "order code : " + it.code + " --1> " + it.status
+	LynxCVRReadyBusinessEvent event = new LynxCVRReadyBusinessEvent()
+	event.setOrder(it)
+    eventService.publishEvent(event)
+}
+
+

@@ -1,0 +1,42 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+import de.hybris.platform.core.model.product.ProductModel;
+
+import com.amway.core.enums.ReturnReasonEnum;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+ Locale localeen = new Locale.Builder().setLanguage("en").build();
+  final List <ProductModel> products =flexibleSearchService.search("select {pk} from {AmwayKitProduct} where {catalogVersion} in ('8796158919257')").getResult();
+ @Override
+    public Object execute() {
+
+        for(ProductModel product : products)
+        {
+				println("product code " + product.code);
+				
+				for(kitp in product.kitEntry){
+						println("entry "  + kitp.entry.code + " " + kitp.entry.getName(localeen));
+				}
+    
+		
+        println("   ");
+        }
+     return "List of invoiceProcess code:  "+products.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

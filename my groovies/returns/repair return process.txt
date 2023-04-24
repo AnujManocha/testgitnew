@@ -1,0 +1,59 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import de.hybris.platform.returns.model.ReturnProcessModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+    final ModelService modelService = applicationContext.getBean("modelService")
+	List<String> list = new ArrayList<String>();
+	
+
+
+	
+ 
+ @Override
+    public Object execute() {
+	
+
+//list.add("97315007");
+list.add("97315006");
+list.add("97315005");
+list.add("97315004");
+list.add("97315001");
+list.add("97277001");
+list.add("97198000");
+list.add("97169009");
+list.add("97162011");
+list.add("97147005");
+list.add("97147004");
+list.add("97147003");
+list.add("97126004");
+          
+		for(String ordercode : list){
+		
+		println("ordercode "+ ordercode);
+       final List <ReturnProcessModel > processes =flexibleSearchService.search("select {lip.pk} from {ReturnProcess as lip} where {lip.code} like '%"+ordercode+"%'and {lip.processdefinitionname} ='return-process-v10'").getResult();
+
+        for(ReturnProcessModel  invoiceProcess : processes)
+        {
+		 businessProcessService.restartProcess(invoiceProcess, "onlineRefundSuccessful")
+    //     println("Done: " + invoiceProcess.getCode())
+        }
+	}
+     return "List of order code:  "+list.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

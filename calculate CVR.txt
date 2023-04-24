@@ -1,0 +1,80 @@
+import com.amway.lynxcore.model.user.LynxTaxPriceUserGroupModel
+import com.amway.lynxcore.service.user.LynxUserGroupService
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.AbstractOrderModel
+import de.hybris.platform.core.model.order.OrderEntryModel
+import de.hybris.platform.core.model.security.PrincipalGroupModel
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import java.math.RoundingMode
+import static com.amway.lynxcore.util.LynxUtils.round
+import static java.math.BigDecimal.ZERO
+import static java.math.BigDecimal.valueOf
+
+
+sessionService = spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody() {
+    @Override
+    public Object execute() {
+        final ApplicationContext applicationContext = Registry.getApplicationContext()
+
+      final LynxUserGroupService userGroupService = applicationContext.getBean("lynxUserGroupService")
+        final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService");
+        List<OrderEntryModel> OrderEntry = flexibleSearchService.search("select {pk} from {Orderentry} where {order}='9231201763373'").getResult()
+        BigDecimal TotalCVR = 0;
+        for (OrderEntryModel entry : OrderEntry) {
+            println(entry.getInfo())
+            BigDecimal quantity = valueOf(entry.getQuantity());
+            println("Product Quantity = " + quantity)
+            BigDecimal netBasePrice = lynxOrderMarginService.toNet(entry.getBasePrice(), entry);
+            println("Net Base Price = " + netBasePrice)
+            BigDecimal netAboPrice = lynxOrderMarginService.toNet(entry.getAboBasePrice(), entry);
+            println("Net Abo Price = " + netAboPrice)
+			
+		//	if(entry.entryNumber ==0 ){
+		//	    netAboPrice = 523.14;  //abo price
+		//    	netBasePrice = 575.46;  //rc price
+		//	}
+			
+            BigDecimal initialCvrBfrPromo = netBasePrice - netAboPrice
+            println("Initial CVR before promo = (NET Registered Customer price before promo - NETDistributor Price before promo) =" + initialCvrBfrPromo)
+            BigDecimal netPriceBeforePromo = netBasePrice.multiply(quantity);
+            println("Net Price Before Promo = " + netPriceBeforePromo)
+            BigDecimal netPriceAfterPromo = lynxOrderMarginService.toNet(lynxOrderMarginService.calculateGrossValueAfterPromo(entry).doubleValue(), entry);
+            println("Net Price After Promo = " + netPriceAfterPromo)
+			if(netPriceAfterPromo == 0 & netPriceBeforePromo == 0){
+			 println("000000000000000000000000000000000000000000000000000000000000000000000000000")
+			 BigDecimal margin  =0;
+			 TotalCVR += margin;
+            println("----------------------------------------------------------------------------")
+			}else{
+           BigDecimal promoRate = netPriceAfterPromo.divide(netPriceBeforePromo, 5, RoundingMode.HALF_UP);
+		  // BigDecimal promoRate =0;
+            println("Promo Impact (Promotion impact on the order entry = OE Net before promo/ OE Net after promo) = " + promoRate)
+            BigDecimal margin = round(netBasePrice.subtract(netAboPrice).multiply(quantity).multiply(promoRate));
+            println("Calculate CVR after promo = (CVR OE before promo  Promotion impact  Quantity) = " + margin)
+            TotalCVR += margin;
+            println("----------------------------------------------------------------------------")
+			
+			}
+        }
+        println("Order total CVR = " + TotalCVR)
+        println "Done All! ";
+        return "done";
+    }
+}, spring.getBean('userService').getAdminUser())
+
+
+//check product
+// find net prices
+
+//INC1446187
+//INC1448047
+
+
+ORDER CVR should be 27.06
+
+Please raise request with finance team for updating customer's CVR.
+
+Thanks.

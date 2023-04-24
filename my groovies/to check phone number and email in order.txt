@@ -1,0 +1,44 @@
+def orders = flexibleSearchService.search("""
+select {o.pk} from {order as o join AmwayAccount as aa on {o.account} = {aa.pk} join SalesApplication as sa on {o.salesapplication}={sa.pk}}
+ where {o.salesApplication} ="8796113207387"
+and {o.creationtime} >="2022-07-28 00:00:00.000"  and {o.site} ="8796158624808" AND {originalVersion} IS NULL
+""").result
+ 
+
+ 
+orders.each {
+    println "order code : " + it.code + " --1> " + it.status
+     println"phone : " + it.deliveryAddress.phone1
+     println"email id : "+  it.deliveryAddress.email
+}
+
+//web 8796113141851
+//web mobile 8796113207387
+
+
+
+//query 
+
+select {o.pk} as "PK",{o.code} as "order code",{o.creationtime} as "creationtime",{da.phone1} as "phone" ,{aa.customerID} as "Customer id",{aa.customerEmail} as "Contact Email",{amc.code} as "ABO code" from {
+ order as o join Customer as aa on {o.user} = {aa.pk}
+ join AmwayAccount as amc on {o.account} = {amc.pk}
+ join SalesApplication as sa on {o.salesapplication}={sa.pk}
+ join Address as da on {o.deliveryAddress} = {da.pk}
+ }
+ where {o.salesApplication} ='8796113207387'
+and  {o.site} ="8796158624808" AND {originalVersion} IS NULL
+and {da.phone1} is NULL and {o.status} != '8796097380443'
+and {o.creationtime} >= '2022-08-03 00:00:00.000'
+order by {o.creationtime}
+
+//invoice numbers
+def orders = flexibleSearchService.search("""
+select {o.pk} from {order as o} where {o.code} in ('067637789') AND {o.originalVersion} IS NULL
+""").result
+ 
+
+ 
+orders.each {
+    println "order code : " + it.code + " --1> " + it.status
+     
+}

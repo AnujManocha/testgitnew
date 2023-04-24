@@ -1,0 +1,39 @@
+//event
+
+select event.createdTS, event.p_code, event.p_entityid, event.p_name, event.p_entityname, message.p_topic, message.p_eventpayload, enum.Code as sending_status
+from amwayeventqueueentry  as event
+left join eventstagingentry as message on message.p_key = event.p_code
+left join enumerationvalues10 enum on message.p_syncstate = enum.PK
+where event.p_code in (
+
+ '84926461'
+
+)
+order by event.createdTS desc;
+
+
+
+
+//order
+
+select event.createdTS, event.p_code, event.p_entityid, event.p_name, event.p_entityname, message.p_topic, enum.Code as sending_status
+from amwayeventqueueentry  as event
+left join eventstagingentry as message on message.p_key = event.p_code
+left join enumerationvalues10 enum on message.p_syncstate = enum.PK
+where event.p_entityid in (
+
+'97569637'
+
+)
+
+order by event.createdTS desc;
+
+
+
+
+059325508
+
+
+, message.p_eventpayload
+
+checkReverseCouponsAction

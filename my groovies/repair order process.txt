@@ -1,0 +1,46 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+import de.hybris.platform.orderprocessing.model.OrderProcessModel;
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+    final ModelService modelService = applicationContext.getBean("modelService")
+	List<String> list = new ArrayList<String>();
+	
+
+
+	
+ 
+ @Override
+    public Object execute() {
+	
+     	list.add("217018001");
+		for(String ordercode : list){
+		
+		println("ordercode "+ ordercode);
+       final List <OrderProcessModel> processes =flexibleSearchService.search("select {lip.pk} from {OrderProcess as lip} where {lip.code} like '%"+ordercode+"%'and {lip.processdefinitionname} ='dynamic-order-process'").getResult();
+
+        for(OrderProcessModel orderprocess : processes)
+        {
+		 defaultBusinessProcessService.restartProcess(orderprocess, "lockOrder")
+         println("Done: " + orderprocess.getCode())
+         invoiceCode = orderprocess.getCode()
+        }
+	}
+     return "List of order code:  "+list.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

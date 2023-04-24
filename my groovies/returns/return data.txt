@@ -1,0 +1,104 @@
+import com.amway.lynxevents.events.app.LynxInvoiceReadyBusinessEvent;
+
+def returns = flexibleSearchService.search("""select {pk} from {ReturnRequest} where {code} in (
+
+'671051182'
+
+)
+""").result
+
+
+
+returns.each {
+  Locale localeen = new Locale.Builder().setLanguage("en").build();
+println "order code : " + it.code + " --1> " + it.status   
+println "order code : " + it.order.paymentTransactions.get(0).code
+//println "order code : " + it.order.paymentTransactions.get(0).paymentProvider
+//println "payemt mode: " + it.order.paymentMode.code
+//println "order code : " + it.order.site.getName(localeen)
+//println "order code : " + it.order.code
+//println "order code : " + it.order.account.code
+  double sum=0l;
+  for(process in it.returnProcess){
+			
+  		for(task in process.currentTasks){
+			
+  		println(task.action);
+  		}
+  		}
+ 
+println(" ");
+}
+
+
+
+
+
+97135004
+97126001
+96959020
+96959018
+
+//select {code} from {ReturnProcess} where {creationTime}>= '2022-11-28 07:22:57.757' and {state} !='8796100132955'
+
+
+
+return-process-v10-97261041-1669716830133
+return-process-v10-97276008-1669632773996
+return-process-v10-97276015-1669644306287
+return-process-v10-97276018-1669645063877
+return-process-v10-97276038-1669727549836
+return-process-v10-97277001-1669618028078
+return-process-v10-97254007-1669622342574
+return-process-v11-97254008-1669623251843
+return-process-v11-97254009-1669655873171
+return-process-v10-97273008-1669641972435
+return-process-v10-97273009-1669649256043
+return-process-v10-97273010-1669655502669
+return-process-v11-97255011-1669641973125
+return-process-v10-97255012-1669645697646
+return-process-v10-97255013-1669647378478
+return-process-v10-97251010-1669617712965
+return-process-v11-97251011-1669624303804
+return-process-v10-97251012-1669656852940
+return-process-v10-97271002-1669642999686
+
+
+
+import com.amway.lynxevents.events.app.LynxInvoiceReadyBusinessEvent;
+
+def returns = flexibleSearchService.search("""select {pk} from {ReturnProcess} where {code} in (
+
+'return-process-v10-97261041-1669716830133',
+'return-process-v10-97276008-1669632773996',
+'return-process-v10-97276015-1669644306287',
+'return-process-v10-97276018-1669645063877',
+'return-process-v10-97276038-1669727549836',
+'return-process-v10-97277001-1669618028078',
+'return-process-v10-97254007-1669622342574',
+'return-process-v11-97254008-1669623251843',
+'return-process-v11-97254009-1669655873171',
+'return-process-v10-97273008-1669641972435',
+'return-process-v10-97273009-1669649256043',
+'return-process-v10-97273010-1669655502669',
+'return-process-v11-97255011-1669641973125',
+'return-process-v10-97255012-1669645697646',
+'return-process-v10-97255013-1669647378478',
+'return-process-v10-97251010-1669617712965',
+'return-process-v11-97251011-1669624303804',
+'return-process-v10-97251012-1669656852940',
+'return-process-v10-97271002-1669642999686'
+
+)
+""").result
+
+
+
+returns.each {
+  if(it.currentTasks.get(0).action =='waitForOnlineRefundedNotification'){
+println "order code : " + it.code 
+println "order code : " + it.currentTasks.get(0).action
+println(" ");
+  }
+}
+

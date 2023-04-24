@@ -1,0 +1,50 @@
+import com.amway.core.model.AmwayAccountModel
+import de.hybris.platform.servicelayer.search.FlexibleSearchQuery
+import java.util.stream.Collectors
+def counter = 0
+def searchQuery = new FlexibleSearchQuery(''' select {acc.PK} from {amwayaccount as acc join customer as cus on {acc.primaryparty} = {cus.PK}} where {acc.code} = '8442482' and {acc.lynxcntrycd} in ('HU')''')
+List<AmwayAccountModel> accounts = flexibleSearchService.search(searchQuery).getResult()
+
+
+def problemAccounts = accounts.stream()
+        .filter({ it.primaryParty.accounts == null || it.primaryParty.accounts.isEmpty() })
+        .collect(Collectors.toList())
+
+println problemAccounts.size() + ' try to be fixed.'
+problemAccounts.stream()
+        .forEach({account -> counter = counter + fixAccount(account)})
+
+println counter + ' accounts were fixed'
+def fixAccount(def account) {
+    println '___________________________________________________'
+    println 'Account number ' + account.code + ' try to be fixed'
+    def primaryParty = account.primaryParty
+    def parties = account.parties
+
+    def ID = primaryParty.customerID
+
+    def newPrimaryPartyOpt = parties.stream().filter({ it ->
+        (it.customerID == ID)
+    }).findFirst()
+
+    if (!newPrimaryPartyOpt.isPresent()) {
+        println 'Party with customer id: ' + ID + ' is not exist among parties'
+        return 0
+    }
+
+    def newPrimaryParty = newPrimaryPartyOpt.get()
+
+    println 'Primary party with customerID ' + ID + ' will be changed from: ' + primaryParty.uid + ' to ' + newPrimaryParty.uid
+    account.setPrimaryParty(newPrimaryParty)
+    modelService.save(account)
+
+    def ordersToAttach = primaryParty.orders
+
+    println ordersToAttach.size() + ' orders will be reattached'
+    ordersToAttach.each {
+        println '\t Order number ' + it.code + ' was reattached'
+        it.setUser(newPrimaryParty)
+        modelService.save(it)
+    }
+    return 1
+}

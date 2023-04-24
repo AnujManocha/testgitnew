@@ -1,0 +1,35 @@
+package com.amway.lynxfulfilmentprocess.strategy.returnrequest.impl
+
+import com.amway.lynxevents.events.app.LynxReturnBusinessEvent
+import com.amway.lynxevents.events.app.LynxReturnRefundStatusChangedBusinessEvent
+import de.hybris.platform.core.Registry
+import de.hybris.platform.returns.model.ReturnRequestModel
+import de.hybris.platform.servicelayer.event.EventService
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+    final ModelService modelService = applicationContext.getBean("modelService")
+    final EventService eventService = applicationContext.getBean("eventService")
+
+    @Override
+    public Object execute() {
+
+        final List<ReturnRequestModel> returns = flexibleSearchService.search("SELECT {PK} FROM {RETURNREQUEST} WHERE {CODE} IN ('96642000')").getResult();
+
+        for(ReturnRequestModel returnRequest : returns){
+            LynxReturnBusinessEvent event = new LynxReturnRefundStatusChangedBusinessEvent()
+            event.setReturnRequest(returnRequest);
+            eventService.publishEvent(event);
+            println("Event Published for return : "+returnRequest.getCode())
+        }
+        return "done"
+    }
+
+}, spring.getBean('userService').getAdminUser())

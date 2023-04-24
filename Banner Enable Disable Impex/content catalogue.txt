@@ -1,0 +1,34 @@
+lynxmasterContentCatalog	Master Content Catalog (MCP)
+lynxfinContentCatalog	Finland Content Catalog
+lynxdnkContentCatalog	Denmark Content Catalog
+lynxnorContentCatalog	Norway Content Catalog
+lynxsweContentCatalog	Sweden Content Catalog
+lynxnldContentCatalog	Netherlands Content Catalog
+lynxespContentCatalog	Spain Content Catalog
+lynxprtContentCatalog	Portugal Content Catalog
+lynxbelContentCatalog	Belgium Content Catalog
+lynxgrcContentCatalog	Greece Content Catalog
+lynxcheContentCatalog	Switzerland Content Catalog
+lynxdeuContentCatalog	Germany Content Catalog
+lynxfraContentCatalog	France Content Catalog
+lynxitaContentCatalog	Italy Content Catalog
+lynxgbrContentCatalog	UK Content Catalog
+lynxirlContentCatalog	Ireland Content Catalog
+lynxautContentCatalog	Austria Content Catalog
+lynxestContentCatalog	Estonia Content Catalog
+lynxhunContentCatalog	Hungary Content Catalog
+lynxsvkContentCatalog	Slovakia Content Catalog
+lynxltuContentCatalog	Lithuania Content Catalog
+lynxrouContentCatalog	Romania Content Catalog
+lynxhrvContentCatalog	Croatia Content Catalog
+lynxturContentCatalog	Turkey Content Catalog
+lynxbgrContentCatalog	Bulgaria Content Catalog
+lynxczeContentCatalog	Czech Content Catalog
+lynxpolContentCatalog	Poland Content Catalog
+lynxlvaContentCatalog	Latvia Content Catalog
+lynxsvnContentCatalog	Slovenia Content Catalog
+
+select {cc.id},{cc.name[en]} from 
+
+{ContentCatalog as cc } 
+

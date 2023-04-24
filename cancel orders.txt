@@ -1,0 +1,38 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+import de.hybris.platform.core.enums.OrderStatus;
+
+import com.amway.core.enums.ReturnReasonEnum;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+ Locale localeen = new Locale.Builder().setLanguage("en").build();
+  final List <OrderModel> orders =flexibleSearchService.search("select {pk} from {Order} where {code} in ('370113083') AND {originalVersion} IS NULL").getResult();
+ @Override
+    public Object execute() {
+
+        for(OrderModel order : orders)
+        {
+			order.setStatus(OrderStatus.CANCELLED);
+			println("All good");
+			modelService.save(order);
+		
+        }
+     return "List of invoiceProcess code:  "+orders.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

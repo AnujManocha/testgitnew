@@ -1,0 +1,36 @@
+fi	lynxfin	Finland Amway Store
+da	lynxdnk	Denmark Amway Store
+no	lynxnor	Norway Amway Store
+sv	lynxswe	Sweden Amway Store
+nl	lynxnld	Netherlands Amway Store
+nl	lynxbel	Belgium Amway Store
+pt	lynxprt	Portugal Amway Store
+es	lynxesp	Spain Amway Store
+de	lynxche	Switzerland Amway Store
+el	lynxgrc	Greece Amway Store
+fr	lynxfra	France Amway Store
+de	lynxdeu	Germany Amway Store
+it	lynxita	Italy Amway Store
+en	lynxirl	Ireland Amway Store
+en	lynxgbr	UK Amway Store
+de	lynxaut	Austria Amway Store
+cs	lynxcze	Czech Republic Amway Store
+lv	lynxlva	Latvia Amway Store
+lt	lynxltu	Lithuania Amway Store
+hu	lynxhun	Hungary Amway Store
+et	lynxest	Estonia Amway Store
+bg	lynxbgr	Bulgaria Amway Store
+sk	lynxsvk	Slovakia Amway Store
+ro	lynxrou	Romania Amway Store
+hr	lynxhrv	Croatia Amway Store
+pl	lynxpol	Poland Amway Store
+sl	lynxsvn	Slovenia Amway Store
+tr	lynxtur	Turkey Amway Store
+
+
+
+select {l.isocode},{bs.uid},{bs.name[en]} from 
+
+{BaseStore as bs 
+join Language as l on {bs.defaultLanguage} ={l.pk}
+} 

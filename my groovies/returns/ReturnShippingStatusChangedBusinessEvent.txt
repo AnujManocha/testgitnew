@@ -1,0 +1,36 @@
+import com.amway.lynxevents.events.app.LynxReturnInvoiceCreatedBusinessEvent;
+import com.amway.lynxevents.events.app.LynxReturnShippingStatusChangedBusinessEvent; 
+ 
+def returns = flexibleSearchService.search("""
+SELECT {PK}
+FROM {ReturnRequest}
+WHERE {code} in (
+
+"96106000",
+"96105000",
+"96102004",
+"96099005",
+"96092009",
+"96019003",
+"95965000",
+"95628002",
+"95326000",
+"94961000",
+"94835000",
+"94787002",
+"94214003",
+"93292002",
+"8274231"
+
+
+) 
+""").result
+ 
+
+ 
+returns.each {
+    println "Return code : " + it.code + " --1> " + it.status
+	LynxReturnShippingStatusChangedBusinessEvent event = new LynxReturnShippingStatusChangedBusinessEvent()
+	event.setReturnRequest(it)
+    eventService.publishEvent(event)
+}

@@ -1,0 +1,67 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+import com.amway.core.enums.ReturnReasonEnum;
+
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+//8796098003035 -paid
+
+  final List <OrderModel> orders =flexibleSearchService.search("select {pk} from {Order} where {creationTime} >= '2022-11-24 17:35:40.73'  and {creationTime} <= '2022-11-28 17:35:40.73' and {paymentStatus}='8796098003035' and {lynxinstallmentPlan} IS null").getResult();
+//  final List <OrderModel> orders =flexibleSearchService.search("select {pk} from {Order} where {code} = '170466054'").getResult();
+ @Override
+    public Object execute() {
+
+        for(OrderModel order : orders)
+        {
+          
+         double   tranasctionamount = 0;
+       
+          if(order.paymentTransactions.size() !=0){
+            tranasctionamount = order.paymentTransactions.get(0).plannedAmount ;
+         
+        
+	//	println(order.code +","+ order.paymentStatus +"," + order.totalPrice +"," + order.lynxManuallyAppliedAccountReceivableBalance);
+  			 float    amountpayed = tranasctionamount +order.lynxManuallyAppliedAccountReceivableBalance;
+			 float   lynxGrandTotalPrice = order.lynxGrandTotalPrice;
+	      if(lynxGrandTotalPrice  == amountpayed ){
+           //     println(order.code +" paid");
+				
+          }else if(lynxGrandTotalPrice  < amountpayed){
+		  
+	//			println("tranasctionamount " + tranasctionamount);
+//				println("total price " + order.lynxGrandTotalPrice);
+ //               println(order.code +" over paid");
+           
+//	            println(order.code +","+ order.paymentStatus +"," + order.lynxGrandTotalPrice +"," + tranasctionamount +","+ order.lynxManuallyAppliedAccountReceivableBalance);
+  
+         
+		 }else if(lynxGrandTotalPrice  > amountpayed){
+			 //under payed
+						println(lynxGrandTotalPrice  > amountpayed);
+		  				println("amountpayed " + amountpayed);
+			            println(order.code +","+ order.paymentStatus +"," + order.lynxGrandTotalPrice +"," + tranasctionamount +","+ order.lynxManuallyAppliedAccountReceivableBalance);
+
+
+		  }
+        }
+          
+            }
+     return "List of orders code:  "+orders.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())

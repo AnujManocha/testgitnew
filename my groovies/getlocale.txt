@@ -1,0 +1,39 @@
+import com.amway.lynxfinance.enums.LynxInvoiceGenerationStatusEnum
+import com.amway.lynxfulfilmentprocess.model.LynxInvoiceProcessModel
+import de.hybris.platform.core.Registry
+import de.hybris.platform.core.model.order.OrderModel
+
+import de.hybris.platform.servicelayer.model.ModelService
+import de.hybris.platform.servicelayer.search.FlexibleSearchService
+import de.hybris.platform.servicelayer.session.SessionExecutionBody
+import org.springframework.context.ApplicationContext
+import com.amway.lynxcore.model.LynxZoneDeliveryModeModel;
+import de.hybris.platform.paymentstandard.model.StandardPaymentModeModel;
+import de.hybris.platform.core.model.c2l.LanguageModel;
+import de.hybris.platform.processengine.model.ProcessTaskLogModel
+import de.hybris.platform.promotionengineservices.model.PromotionSourceRuleModel;
+import com.amway.core.model.invoice.AmwayInvoiceModel;
+import de.hybris.platform.core.model.order.price.TaxModel;
+import com.amway.core.enums.ReturnReasonEnum;
+import de.hybris.platform.core.model.enumeration.EnumerationValueModel;
+
+sessionService=spring.getBean("sessionService");
+sessionService.executeInLocalView(new SessionExecutionBody(){
+
+    final ApplicationContext applicationContext = Registry.getApplicationContext()
+    final FlexibleSearchService flexibleSearchService = applicationContext.getBean("flexibleSearchService")
+  
+  final List <EnumerationValueModel> invoices =flexibleSearchService.search("select {pk} from  {ReturnReasonEnum}").getResult();
+ @Override
+    public Object execute() {
+
+        for(EnumerationValueModel i : invoices)
+        {
+		Locale localeit = new Locale.Builder().setLanguage("it").build();
+          Locale localezh = new Locale.Builder().setLanguage("zh").build();
+			println(i.code+","+i.getName()+","+i.getName(localeit)+","+i.getName(localezh)+","+i.getDescription()+","+i.getDescription(localeit)+","+i.getDescription(localezh)+",")
+
+        }
+     return "List of invoiceProcess code:  "+invoices.toString(); 
+    }    
+}, spring.getBean('userService').getAdminUser())
