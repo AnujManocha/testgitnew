@@ -73,8 +73,3 @@ sessionService.executeInLocalView(new SessionExecutionBody() {
 //INC1448047
 
 
-ORDER CVR should be 27.06
-
-Please raise request with finance team for updating customer's CVR.
-
-Thanks.
