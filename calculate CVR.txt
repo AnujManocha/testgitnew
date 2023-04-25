@@ -10,7 +10,7 @@ import org.springframework.context.ApplicationContext
 import java.math.RoundingMode
 import static com.amway.lynxcore.util.LynxUtils.round
 import static java.math.BigDecimal.ZERO
-import static java.math.BigDecimal.valueOf
+import static java.math.BigDecimal.valueOf -c4
 
 
 sessionService = spring.getBean("sessionService");
