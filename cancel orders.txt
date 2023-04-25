@@ -36,4 +36,9 @@ sessionService.executeInLocalView(new SessionExecutionBody(){
         }
      return "List of invoiceProcess code:  "+orders.toString(); 
     }    
-}, spring.getBean('userService').getAdminUser())
+}, spring
+
+
+
+
+//amwayas.getBean('userService').getAdminUser())
